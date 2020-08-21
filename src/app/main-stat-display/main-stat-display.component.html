@@ -1,0 +1,4 @@
+<li *ngFor="let mainstatIt of mainstats">
+    Mainstat: {{mainstatIt.getName()}} = {{mainstatIt.getValue()}}
+    <app-sub-stat-display [substats]='mainstatIt.getSubstats()'></app-sub-stat-display>
+</li>
