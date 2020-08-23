@@ -41,7 +41,7 @@ export class MainStatFactory {
 
     private createSubStat(substatEnum: SubStatEnum, subStatModifier: number): SubStatInterface {
         let substat: SubStat;
-        substat = new SubStat(subStatModifier, substatEnum);
+        substat = new SubStat(subStatModifier, substatEnum, false);
         return substat;
     }
 }

@@ -10,7 +10,7 @@ export class MainStatProvider {
     private constructor(){}
 
     public static getInstance(): MainStatProvider {
-        if (MainStatProvider.instance === null ||MainStatProvider.instance === undefined){
+        if (MainStatProvider.instance === null || MainStatProvider.instance === undefined){
             MainStatProvider.instance = new MainStatProvider();
             MainStatProvider.initMainStats();
         }

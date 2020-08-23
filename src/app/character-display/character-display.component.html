@@ -1,0 +1,52 @@
+<div class='container'>
+
+    <table class="table table-striped bg-secondary text-white">
+        <tbody>
+            <tr>
+                <td rowspan="2" class="text-center align-middle h3">
+                    {{character.getCharacterName()}}
+                </td>
+                <td>
+                    {{character.getCharacterClass()}} Lvl.{{character.getLevel()}} <br>
+                    Class & Level
+                </td>
+                <td>
+                    {{character.getCharacterBackground()}} <br>
+                    Background
+                </td>
+                <td>
+                    {{character.getPlayerName()}} <br>
+                    Player Name
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    {{character.getRace()}} <br>
+                    Race
+                </td>
+                <td>
+                    {{character.getAlignment()}} <br>
+                    Alignment
+                </td>
+                <td>
+                    {{character.getExperience()}} <br>
+                    Experience Points
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <table class="table table-striped bg-secondary text-white">
+        <tbody>
+            <tr>
+                <td class="text-center align-middle">AC: {{character.getArmorClass()}}</td>
+                <td class="text-center align-middle">Inspiration: {{character.getInspiration()}}</td>
+                <td class="text-center align-middle">Passive Wisdom: {{character.getPassiveWisdom()}}</td>
+                <td class="text-center align-middle">Proficiency Bonus: {{character.getProficiencyBonus()}}</td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>
+
+<app-main-stat-display></app-main-stat-display>

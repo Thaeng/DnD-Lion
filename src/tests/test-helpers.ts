@@ -22,7 +22,10 @@ export const ArrayCustomMatchers: CustomMatcherFactories = {
                 if (actual.find(substat => substat.isEquals(expected))) {
                     return pass;
                 }else {
-                    return fail;
+                    return {
+                        pass: false,
+                        message: `expected: ${expected.getName()}`
+                    };
                 }
             }
         };

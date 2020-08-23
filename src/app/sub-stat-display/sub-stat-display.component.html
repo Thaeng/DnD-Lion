@@ -1,3 +1,5 @@
-<ul *ngFor="let subStatIt of substats">
-    <span>SubStat: {{subStatIt.getName()}} = {{subStatIt.getValue()}}</span>
+<ul style="list-style: none;">
+    <li *ngFor="let subStatIt of substats">
+        <input [checked]='subStatIt.isProficient()' (change)='changeProficiency(subStatIt)' type="checkbox" class="form-check-input">{{subStatIt.getName()}} : {{subStatIt.getValue()}}
+    </li>
 </ul>

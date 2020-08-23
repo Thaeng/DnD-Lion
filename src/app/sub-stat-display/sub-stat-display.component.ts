@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { SubStatInterface } from '../../stats/entity/SubstatInterface';
+import { CharacterProvider } from '../provider/CharacterProvicer';
+import { SubStatEnum } from 'src/stats/factory/SubStatEnum';
 
 @Component({
   selector: 'app-sub-stat-display',
@@ -13,7 +15,13 @@ export class SubStatDisplayComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log(this.substats);
+
+  }
+
+  changeProficiency(substat: SubStatInterface): void {
+    const substatEnum: SubStatEnum = SubStatEnum[substat.getName().toUpperCase() as keyof typeof SubStatEnum];
+    const proficient: boolean = !substat.isProficient();
+    CharacterProvider.getInstance().updateSubstat(substatEnum, proficient);
   }
 
 }
