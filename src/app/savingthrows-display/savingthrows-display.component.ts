@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { CharacterProvider } from '../provider/CharacterProvider';
-import { SavingThrowInterface } from 'src/stats/entity/SavingThrowInterface';
 import { SavingThrow } from 'src/stats/entity/SavingThrow';
 
 @Component({
@@ -10,7 +9,7 @@ import { SavingThrow } from 'src/stats/entity/SavingThrow';
 })
 export class SavingthrowsDisplayComponent implements OnInit {
 
-  savingThrows: SavingThrowInterface[];
+  savingThrows: SavingThrow[];
 
   constructor() { }
 

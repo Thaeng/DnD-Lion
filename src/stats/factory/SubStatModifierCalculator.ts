@@ -1,4 +1,4 @@
-import { MainStatInterface } from '../entity/MainStatInterface';
+import { MainStat } from '../entity/MainStat';
 
 export class SubStatModifierCalculator {
 
@@ -26,7 +26,7 @@ export class SubStatModifierCalculator {
     * 7 = -2
     * 0 = -5
     */
-    public calculateModifierFromMainStat(mainStat: MainStatInterface): number {
+    public calculateModifierFromMainStat(mainStat: MainStat): number {
         return Math.floor(mainStat.getValue() / 2) - 5;
     }
 

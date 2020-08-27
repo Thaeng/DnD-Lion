@@ -1,35 +1,40 @@
 <div class='container'>
 
-    <table class="table table-striped bg-secondary text-white">
+    <table class="table table-striped bg-secondary text-white text-center ">
         <tbody>
             <tr>
-                <td rowspan="2" class="text-center align-middle h3">
-                    {{character.getCharacterName()}}
+                <td rowspan="2" class="align-middle">
+                    <input class="form-control" type="text" [(ngModel)]='character.characterName'/>
+                    Character Name
                 </td>
                 <td>
-                    {{character.getCharacterClass()}} Lvl.{{character.getLevel()}} <br>
+                    <div class="d-flex justify-content-left align-items-center">
+                        <input class="form-control" type="text" [(ngModel)]='character.characterClass'/>
+                        <span class="ml-1 mr-1">Lvl.</span>
+                        <input class="form-control w-25" type="number" [(ngModel)]='character.level' min="1"/>
+                    </div>
                     Class & Level
                 </td>
                 <td>
-                    {{character.getCharacterBackground()}} <br>
+                    <input class="form-control" type="text" [(ngModel)]='character.characterBackground'/>
                     Background
                 </td>
                 <td>
-                    {{character.getPlayerName()}} <br>
+                    <input class="form-control" type="text" [(ngModel)]='character.playerName'/>
                     Player Name
                 </td>
             </tr>
             <tr>
                 <td>
-                    {{character.getRace()}} <br>
+                    <input class="form-control" type="text" [(ngModel)]='character.race'/>
                     Race
                 </td>
                 <td>
-                    {{character.getAlignment()}} <br>
+                    <input class="form-control" type="text" [(ngModel)]='character.alignment'/>
                     Alignment
                 </td>
                 <td>
-                    {{character.getExperience()}} <br>
+                    <input class="form-control" type="number" [(ngModel)]='character.experience' min="0"/>
                     Experience Points
                 </td>
             </tr>
@@ -39,10 +44,10 @@
     <table class="table table-striped bg-secondary text-white">
         <tbody>
             <tr>
-                <td class="text-center align-middle">AC: {{character.getArmorClass()}}</td>
-                <td class="text-center align-middle">Inspiration: {{character.getInspiration()}}</td>
-                <td class="text-center align-middle">Passive Wisdom: {{character.getPassiveWisdom()}}</td>
-                <td class="text-center align-middle">Proficiency Bonus: {{character.getProficiencyBonus()}}</td>
+                <td class="text-center align-middle"><input class="form-control" type="number" min="0" [(ngModel)]='character.armorClass'/> AC </td>
+                <td class="text-center align-middle"><input class="form-control" type="number" min="0" [(ngModel)]='character.inspiration'/>Inspiration</td>
+                <td class="text-center align-middle"><input class="form-control" type="number" min="0" [(ngModel)]='character.passiveWisdom'/>Passive Wisdom</td>
+                <td class="text-center align-middle"><input class="form-control" type="number" min="0" [(ngModel)]='character.proficiencyBonus'/>Proficiency Bonus</td>
             </tr>
         </tbody>
     </table>

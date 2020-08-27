@@ -1,6 +1,4 @@
-import { SavingThrowInterface } from './SavingThrowInterface';
-
-export class SavingThrow implements SavingThrowInterface {
+export class SavingThrow {
 
     public name: string;
     public value: number;

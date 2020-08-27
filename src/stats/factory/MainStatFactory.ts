@@ -1,10 +1,8 @@
-import { MainStat } from '../entity/MainStat';
-import { SubStat } from '../entity/SubStat';
 import { SubStatEnum } from './SubStatEnum';
 import { MainStatEnum } from './MainStatEnum';
 import { MainToSubAssociation } from './MainToSubAssociation';
-import { MainStatInterface } from '../entity/MainStatInterface';
-import { SubStatInterface } from '../entity/SubstatInterface';
+import { MainStat } from '../entity/MainStat';
+import { SubStat } from '../entity/SubStat';
 import { SubStatModifierCalculator } from './SubStatModifierCalculator';
 
 
@@ -26,20 +24,20 @@ export class MainStatFactory {
         return MainStatFactory.instance;
     }
 
-    public buildMainStat(mainstatEnum: MainStatEnum, baseValue: number): MainStatInterface{
+    public buildMainStat(mainstatEnum: MainStatEnum, baseValue: number): MainStat{
         let mainstat: MainStat;
         const name: string = mainstatEnum;
         const subStatModifier: number = MainStatFactory.subStatModifierCalculator.calculateModifierFromValue(baseValue);
-        const substats: SubStatInterface[] = this.createSubStats(mainstatEnum, subStatModifier);
+        const substats: SubStat[] = this.createSubStats(mainstatEnum, subStatModifier);
         mainstat = new MainStat(baseValue, substats, subStatModifier, name);
         return mainstat;
     }
 
-    private createSubStats(mainstatEnum: MainStatEnum, subStatModifier: number): SubStatInterface[]{
+    private createSubStats(mainstatEnum: MainStatEnum, subStatModifier: number): SubStat[]{
         return MainStatFactory.mainToSubMap.get(mainstatEnum).map(substatenum => this.createSubStat(substatenum, subStatModifier));
     }
 
-    private createSubStat(substatEnum: SubStatEnum, subStatModifier: number): SubStatInterface {
+    private createSubStat(substatEnum: SubStatEnum, subStatModifier: number): SubStat {
         let substat: SubStat;
         substat = new SubStat(subStatModifier, substatEnum, false);
         return substat;

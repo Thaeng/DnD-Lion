@@ -1,12 +1,9 @@
-import { CharacterInterface } from './CharacterInterface';
-import { MainStatInterface } from './MainStatInterface';
-import { HealthInterface } from './HealthInterface';
-import { SavingThrowInterface } from './SavingThrowInterface';
-import { SavingThrow } from './SavingThrow';
 import { MainStat } from './MainStat';
+import { Health } from './Health';
+import { SavingThrow } from './SavingThrow';
 import { SubStat } from './SubStat';
 
-export class Character implements CharacterInterface {
+export class Character {
 
     proficiencyBonus: number;
     armorClass: number;
@@ -22,11 +19,11 @@ export class Character implements CharacterInterface {
     characterBackground: string;
     race: string;
     alignment: string;
-    mainstats: MainStatInterface[];
-    health: HealthInterface;
-    savingThrows: SavingThrowInterface[];
+    mainstats: MainStat[];
+    health: Health;
+    savingThrows: SavingThrow[];
 
-    public fromCharacter(other: Character): CharacterInterface {
+    public fromCharacter(other: Character): Character {
         this.proficiencyBonus = other.proficiencyBonus;
         this.armorClass = other.armorClass;
         this.level = other.level;
@@ -126,15 +123,15 @@ export class Character implements CharacterInterface {
         return this.alignment;
     }
 
-    public getMainstats(): MainStatInterface[] {
+    public getMainstats(): MainStat[] {
         return this.mainstats;
     }
 
-    public getHealth(): HealthInterface {
+    public getHealth(): Health {
         return this.health;
     }
 
-    public getSavingThrows(): SavingThrowInterface[] {
+    public getSavingThrows(): SavingThrow[] {
         return this.savingThrows;
     }
 
@@ -188,16 +185,16 @@ export class Character implements CharacterInterface {
     }
 
 
-    public setMainstats(value: MainStatInterface[]): void {
+    public setMainstats(value: MainStat[]): void {
         this.mainstats = value;
     }
 
 
-    public setHealth(value: HealthInterface): void {
+    public setHealth(value: Health): void {
         this.health = value;
     }
 
-    public setSavingThrows(value: SavingThrowInterface[]): void {
+    public setSavingThrows(value: SavingThrow[]): void {
         this.savingThrows = value;
     }
 

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MainStatInterface} from '../../stats/entity/MainStatInterface';
+import { MainStat} from '../../stats/entity/MainStat';
 import { CharacterProvider} from '../provider/CharacterProvider';
 import { MainStatEnum } from 'src/stats/factory/MainStatEnum';
 
@@ -10,7 +10,7 @@ import { MainStatEnum } from 'src/stats/factory/MainStatEnum';
 })
 export class MainStatDisplayComponent implements OnInit {
 
-  mainstats: MainStatInterface[];
+  mainstats: MainStat[];
   timeoutHandler: number;
 
   constructor() { }
@@ -19,9 +19,9 @@ export class MainStatDisplayComponent implements OnInit {
     this.mainstats = CharacterProvider.getInstance().getCharacter().getMainstats();
   }
 
-  changeMainstat(mainstatInterface: MainStatInterface, value: number): void{
-    const mainstatEnum: MainStatEnum = MainStatEnum[mainstatInterface.getName().toUpperCase() as keyof typeof MainStatEnum];
-    const newValue = mainstatInterface.getValue() + value;
+  changeMainstat(mainstat: MainStat, value: number): void{
+    const mainstatEnum: MainStatEnum = MainStatEnum[mainstat.getName().toUpperCase() as keyof typeof MainStatEnum];
+    const newValue = mainstat.getValue() + value;
     CharacterProvider.getInstance().updateMainstat(mainstatEnum, newValue);
   }
 
@@ -32,9 +32,9 @@ export class MainStatDisplayComponent implements OnInit {
     }
   }
 
-  public mousedown(mainstatInterface: MainStatInterface, value: number): void {
+  public mousedown(mainstat: MainStat, value: number): void {
     this.timeoutHandler = setInterval(() => {
-      this.changeMainstat(mainstatInterface, value);
+      this.changeMainstat(mainstat, value);
     }, 150);
   }
 }

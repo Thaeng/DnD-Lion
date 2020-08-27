@@ -4,10 +4,8 @@
         <tbody>
             <tr *ngFor="let mainstatIt of mainstats">
                 <td>
-                    <!--<button class="btn btn-dark" (click)="changeMainstat(mainstatIt,-1)">-</button> -->
                     <button class="btn btn-dark" (mousedown)="mousedown(mainstatIt,-1)" (mouseup)="mouseup()" (mouseleave)="mouseup()" (click)="changeMainstat(mainstatIt,-1)">-</button>
                     <button class="btn btn-dark" type="button" data-toggle="collapse" [attr.data-target]='"#"+mainstatIt.getName()' aria-expanded="false" >{{mainstatIt.getName()}} : {{mainstatIt.getValue()}}</button>
-                    <!--<button class="btn btn-dark" (click)="changeMainstat(mainstatIt,1)">+</button> -->
                     <button class="btn btn-dark" (mousedown)="mousedown(mainstatIt,1)" (mouseup)="mouseup()" (mouseleave)="mouseup()" (click)="changeMainstat(mainstatIt,1)">+</button>
                     <div class="collapse bg-secondary text-white" [id]='mainstatIt.getName()'>
                         <app-sub-stat-display [substats]='mainstatIt.getSubstats()'></app-sub-stat-display>

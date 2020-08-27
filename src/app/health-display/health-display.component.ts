@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HealthInterface } from 'src/stats/entity/HealthInterface';
+import { Health } from 'src/stats/entity/Health';
 import { CharacterProvider } from '../provider/CharacterProvider';
 
 @Component({
@@ -9,7 +9,7 @@ import { CharacterProvider } from '../provider/CharacterProvider';
 })
 export class HealthDisplayComponent implements OnInit {
 
-  health: HealthInterface;
+  health: Health;
   damageTaken = 0;
   healing = 0;
 

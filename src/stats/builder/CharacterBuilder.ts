@@ -3,11 +3,9 @@ import { Health } from '../entity/Health';
 import { MainStatProvider } from '../../app/provider/MainStatProvider';
 import { MainStatEnum } from '../factory/MainStatEnum';
 import { SubStatEnum } from '../factory/SubStatEnum';
-import { MainStatInterface } from '../entity/MainStatInterface';
-import { SubStatInterface } from '../entity/SubstatInterface';
+import { MainStat } from '../entity/MainStat';
+import { SubStat } from '../entity/SubStat';
 import { SubStatModifierCalculator } from '../factory/SubStatModifierCalculator';
-import { HealthInterface } from '../entity/HealthInterface';
-import { SavingThrowInterface } from '../entity/SavingThrowInterface';
 import { SavingThrow } from '../entity/SavingThrow';
 
 export class CharacterBuilder {
@@ -43,22 +41,22 @@ export class CharacterBuilder {
         return this;
     }
 
-    public mainStats(mainStats: MainStatInterface[]): CharacterBuilder {
+    public mainStats(mainStats: MainStat[]): CharacterBuilder {
         this.character.setMainstats(mainStats);
         this.recalculateSubStats();
         this.recalculateSavingThrows();
         return this;
     }
 
-    public subStats(mainStatEnum: MainStatEnum, substats: SubStatInterface[]): CharacterBuilder{
+    public subStats(mainStatEnum: MainStatEnum, substats: SubStat[]): CharacterBuilder{
         this.character.getMainstats().find(m => m.getName() === mainStatEnum).setSubstats(substats);
         this.recalculateSubStats();
         return this;
     }
 
     public mainStat(mainStatEnum: MainStatEnum, value: number): CharacterBuilder{
-        const mainstats: MainStatInterface[] = this.character.getMainstats();
-        const mainstat: MainStatInterface = mainstats.find(m => m.getName() === mainStatEnum);
+        const mainstats: MainStat[] = this.character.getMainstats();
+        const mainstat: MainStat = mainstats.find(m => m.getName() === mainStatEnum);
 
         const increment = value - mainstat.getValue();
         mainstat.incrementBy(increment);
@@ -71,8 +69,8 @@ export class CharacterBuilder {
     public subStat(subStatEnum: SubStatEnum, proficient: boolean): CharacterBuilder{
         this.character.getMainstats().forEach(
             mainstat => {
-                const subStats: SubStatInterface[] = mainstat.getSubstats();
-                const subStat: SubStatInterface = subStats.find(ss => ss.getName() === subStatEnum);
+                const subStats: SubStat[] = mainstat.getSubstats();
+                const subStat: SubStat = subStats.find(ss => ss.getName() === subStatEnum);
                 if (subStat !== undefined){
                     subStat.setProficient(proficient);
                 }
@@ -94,7 +92,7 @@ export class CharacterBuilder {
 
     private recalculateSavingThrows(): void {
         this.character.getSavingThrows().forEach(savingThrow => {
-            const correspondingMS: MainStatInterface =
+            const correspondingMS: MainStat =
                 this.character.getMainstats().find(mainstat => mainstat.getName() === savingThrow.getName());
 
             if (correspondingMS !== null && correspondingMS !== undefined){
@@ -170,12 +168,12 @@ export class CharacterBuilder {
         return this;
     }
 
-    public health(health: HealthInterface): CharacterBuilder {
+    public health(health: Health): CharacterBuilder {
         this.character.setHealth(health);
         return this;
     }
 
-    public savingThrows(savingThrows: SavingThrowInterface[]): CharacterBuilder{
+    public savingThrows(savingThrows: SavingThrow[]): CharacterBuilder{
         this.character.savingThrows = savingThrows;
         return this;
     }

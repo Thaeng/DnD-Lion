@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CharacterProvider } from '../provider/CharacterProvider';
 import { Character } from 'src/stats/entity/Character';
-import { MainStat } from 'src/stats/entity/MainStat';
 
 @Component({
   selector: 'app-import-export',

@@ -2,10 +2,10 @@ import { Character } from '../../stats/entity/Character';
 import { CharacterBuilder } from '../../stats/builder/CharacterBuilder';
 import { MainStatEnum } from '../../stats/factory/MainStatEnum';
 import { SubStatEnum } from '../../stats/factory/SubStatEnum';
-import { MainStatInterface } from '../../stats/entity/MainStatInterface';
-import { SubStatInterface } from '../../stats/entity/SubstatInterface';
+import { MainStat } from '../../stats/entity/MainStat';
+import { SubStat } from '../../stats/entity/SubStat';
 import { SubStatModifierCalculator } from 'src/stats/factory/SubStatModifierCalculator';
-import { SavingThrowInterface } from 'src/stats/entity/SavingThrowInterface';
+import { SavingThrow } from 'src/stats/entity/SavingThrow';
 
 export class CharacterProvider {
 
@@ -53,17 +53,17 @@ export class CharacterProvider {
         this.character = builder.subStat(substatEnum, proficient).build();
     }
 
-    public updateSavingThrow(savingThrow: SavingThrowInterface, proficient: boolean): void{
+    public updateSavingThrow(savingThrow: SavingThrow, proficient: boolean): void{
         savingThrow.setProficient(proficient);
         this.recalculateSavingThrows();
     }
 
-    public setMainStats(mainStats: MainStatInterface[]): void{
+    public setMainStats(mainStats: MainStat[]): void{
         const builder: CharacterBuilder = new CharacterBuilder().fromCharacter(this.character);
         this.character = builder.mainStats(mainStats).build();
     }
 
-    public setSubStats(mainstatEnum: MainStatEnum, subStats: SubStatInterface[]): void{
+    public setSubStats(mainstatEnum: MainStatEnum, subStats: SubStat[]): void{
         const builder: CharacterBuilder = new CharacterBuilder().fromCharacter(this.character);
         this.character = builder.subStats(mainstatEnum, subStats).build();
     }
@@ -74,7 +74,7 @@ export class CharacterProvider {
 
     private recalculateSavingThrows(): void {
         this.character.getSavingThrows().forEach(savingThrow => {
-            const correspondingMS: MainStatInterface =
+            const correspondingMS: MainStat =
                 this.character.getMainstats().find(mainstat => mainstat.getName() === savingThrow.getName());
 
             if (correspondingMS !== null && correspondingMS !== undefined){

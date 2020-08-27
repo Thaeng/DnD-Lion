@@ -1,6 +1,4 @@
-import { HealthInterface } from './HealthInterface';
-
-export class Health implements HealthInterface {
+export class Health  {
 
     private currentHitpoints: number;
     private temporaryHitpoints: number;

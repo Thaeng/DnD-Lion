@@ -1,5 +1,4 @@
-import { SubStatInterface } from './SubstatInterface';
-export class SubStat implements SubStatInterface{
+export class SubStat {
 
     value: number;
     name: string;
@@ -11,7 +10,7 @@ export class SubStat implements SubStatInterface{
         this.proficient = proficient === null || proficient === undefined ? false : proficient;
     }
 
-    fromSubStat(other: SubStat): SubStatInterface {
+    fromSubStat(other: SubStat): SubStat {
         this.value = other.value;
         this.name = other.name;
         this.proficient = other.proficient;

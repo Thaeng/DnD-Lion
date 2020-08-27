@@ -1,14 +1,12 @@
-import {SubStatInterface } from './SubstatInterface';
-import { MainStatInterface } from './MainStatInterface';
 import { SubStat } from './SubStat';
-export class MainStat implements MainStatInterface{
+export class MainStat implements MainStat{
 
     value: number;
-    subStats: SubStatInterface[];
+    subStats: SubStat[];
     substatModifier: number;
     name: string;
 
-    constructor(value?: number, subStats?: SubStatInterface[], substatModifier?: number, name?: string) {
+    constructor(value?: number, subStats?: SubStat[], substatModifier?: number, name?: string) {
         this.value = value;
         this.subStats = subStats;
         this.substatModifier = substatModifier;
@@ -29,7 +27,7 @@ export class MainStat implements MainStatInterface{
     getValue(): number {
         return this.value;
     }
-    getSubstats(): SubStatInterface[] {
+    getSubstats(): SubStat[] {
         return this.subStats;
     }
     incrementBy(value: number): void {
@@ -63,7 +61,7 @@ export class MainStat implements MainStatInterface{
         this.value = value;
     }
 
-    setSubstats(substats: SubStatInterface[]): void {
+    setSubstats(substats: SubStat[]): void {
         this.subStats = substats;
     }
 }
