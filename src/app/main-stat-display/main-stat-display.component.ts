@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MainStatInterface} from '../../stats/entity/MainStatInterface';
-import { CharacterProvider} from '../provider/CharacterProvicer';
+import { CharacterProvider} from '../provider/CharacterProvider';
 import { MainStatEnum } from 'src/stats/factory/MainStatEnum';
 
 @Component({

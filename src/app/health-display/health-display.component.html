@@ -1,0 +1,31 @@
+<div class="container text-center">
+    <p class="text-center text-white h2">Health</p>
+    <table class="table bg-secondary text-white text-center">
+        <tbody>
+            <tr>
+                <td>Hit Point Maximum: {{health.getMaxHitpoints()}}</td>
+                <td>Current Hit Points: {{health.getCurrentHitpoints()}}</td>
+                <td>Temporary Hit Points: {{health.getTemporaryHitpoints()}}</td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <table class="table bg-secondary text-white">
+        <tbody>
+            <tr>
+                <td>
+                    <div class="d-flex justify-content-center align-items-center">
+                        <input class="form-control w-25" type="number" [(ngModel)]='damageTaken' min="0"/>
+                        <button class="btn bg-dark text-white" type="button" (click)='takeDamage()'>Take Damage</button>
+                    </div>
+                </td>
+                <td>
+                    <div class="d-flex justify-content-center align-items-center">
+                        <input class="form-control w-25" type="number" [(ngModel)]='healing'min="0"/>
+                        <button class="btn bg-dark text-white" type="button" (click)='heal()'>Heal</button>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

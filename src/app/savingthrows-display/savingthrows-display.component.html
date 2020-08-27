@@ -1,0 +1,12 @@
+<div class="container">
+    <p class="text-center text-white h2">Saving Throws</p>
+    <table class="table text-white bg-secondary text-center">
+        <tbody>
+            <tr>
+                <td *ngFor="let savingThrow of savingThrows">
+                    <input [checked]='savingThrow.isProficient()' (change)='changeProficiency(savingThrow)' type="checkbox" class="form-check-input">{{savingThrow.getName()}} : {{savingThrow.getValue()}}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

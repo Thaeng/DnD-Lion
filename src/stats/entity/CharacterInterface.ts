@@ -1,6 +1,6 @@
 import { MainStatInterface } from '../entity/MainStatInterface';
 import { HealthInterface } from './HealthInterface';
-import { SavingThrowsInterface } from './SavingThrowsInterface';
+import { SavingThrowInterface } from './SavingThrowInterface';
 
 export interface CharacterInterface {
 
@@ -10,6 +10,7 @@ export interface CharacterInterface {
     getExperience(): number;
     getInspiration(): number;
     getPassiveWisdom(): number;
+    getSpeed(): number;
 
     getCharacterName(): string;
     getPlayerName(): string;
@@ -19,6 +20,9 @@ export interface CharacterInterface {
     getAlignment(): string;
 
     getMainstats(): MainStatInterface[];
-    getHealth(): HealthInterface[];
-    getSavingThrows(): SavingThrowsInterface[];
+    getHealth(): HealthInterface;
+    getSavingThrows(): SavingThrowInterface[];
+
+    takeDamage(damageTaken: number): void;
+    healDamage(healTaken: number): void;
 }

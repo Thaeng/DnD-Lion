@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CharacterInterface } from '../../stats/entity/CharacterInterface';
-import { CharacterProvider } from '../provider/CharacterProvicer';
+import { CharacterProvider } from '../provider/CharacterProvider';
 
 @Component({
   selector: 'app-character-display',

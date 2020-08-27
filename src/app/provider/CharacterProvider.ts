@@ -5,6 +5,7 @@ import { SubStatEnum } from '../../stats/factory/SubStatEnum';
 import { MainStatInterface } from '../../stats/entity/MainStatInterface';
 import { SubStatInterface } from '../../stats/entity/SubstatInterface';
 import { SubStatModifierCalculator } from 'src/stats/factory/SubStatModifierCalculator';
+import { SavingThrowInterface } from 'src/stats/entity/SavingThrowInterface';
 
 export class CharacterProvider {
 
@@ -30,6 +31,7 @@ export class CharacterProvider {
         const provider: CharacterProvider = CharacterProvider.getInstance();
         provider.setCharacter(character);
         provider.recalculateSubStats();
+        provider.recalculateSavingThrows();
         return provider;
     }
 
@@ -51,6 +53,11 @@ export class CharacterProvider {
         this.character = builder.subStat(substatEnum, proficient).build();
     }
 
+    public updateSavingThrow(savingThrow: SavingThrowInterface, proficient: boolean): void{
+        savingThrow.setProficient(proficient);
+        this.recalculateSavingThrows();
+    }
+
     public setMainStats(mainStats: MainStatInterface[]): void{
         const builder: CharacterBuilder = new CharacterBuilder().fromCharacter(this.character);
         this.character = builder.mainStats(mainStats).build();
@@ -63,6 +70,22 @@ export class CharacterProvider {
 
     public getCharacter(): Character{
         return this.character;
+    }
+
+    private recalculateSavingThrows(): void {
+        this.character.getSavingThrows().forEach(savingThrow => {
+            const correspondingMS: MainStatInterface =
+                this.character.getMainstats().find(mainstat => mainstat.getName() === savingThrow.getName());
+
+            if (correspondingMS !== null && correspondingMS !== undefined){
+                savingThrow.setValue(
+                    savingThrow.isProficient() ?
+                        correspondingMS.getSubstatModifier() + this.character.getProficiencyBonus()
+                        :
+                        correspondingMS.getSubstatModifier()
+                );
+            }
+        });
     }
 
     private recalculateSubStats(): void{

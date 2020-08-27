@@ -1,11 +1,14 @@
 import { Character } from '../entity/Character';
+import { Health } from '../entity/Health';
 import { MainStatProvider } from '../../app/provider/MainStatProvider';
 import { MainStatEnum } from '../factory/MainStatEnum';
 import { SubStatEnum } from '../factory/SubStatEnum';
 import { MainStatInterface } from '../entity/MainStatInterface';
 import { SubStatInterface } from '../entity/SubstatInterface';
 import { SubStatModifierCalculator } from '../factory/SubStatModifierCalculator';
-import { MainStat } from '../entity/MainStat';
+import { HealthInterface } from '../entity/HealthInterface';
+import { SavingThrowInterface } from '../entity/SavingThrowInterface';
+import { SavingThrow } from '../entity/SavingThrow';
 
 export class CharacterBuilder {
     private character: Character;
@@ -16,7 +19,23 @@ export class CharacterBuilder {
 
     private initCharacter(): void{
         this.character = new Character();
+        this.initMainStats();
+        this.initHealth();
+        this.initSavingThrows();
+    }
+
+    private initMainStats(): void {
         this.character.setMainstats(MainStatProvider.getInstance().get());
+    }
+
+    private initHealth(): void {
+        this.character.setHealth(new Health(30));
+    }
+
+    private initSavingThrows(): void {
+        this.character.setSavingThrows(
+            Object.keys(MainStatEnum).map(mainstat => new SavingThrow(MainStatEnum[mainstat], 0, false))
+        );
     }
 
     public fromCharacter(character: Character): CharacterBuilder {
@@ -27,12 +46,12 @@ export class CharacterBuilder {
     public mainStats(mainStats: MainStatInterface[]): CharacterBuilder {
         this.character.setMainstats(mainStats);
         this.recalculateSubStats();
+        this.recalculateSavingThrows();
         return this;
     }
 
     public subStats(mainStatEnum: MainStatEnum, substats: SubStatInterface[]): CharacterBuilder{
         this.character.getMainstats().find(m => m.getName() === mainStatEnum).setSubstats(substats);
-
         this.recalculateSubStats();
         return this;
     }
@@ -45,6 +64,7 @@ export class CharacterBuilder {
         mainstat.incrementBy(increment);
 
         this.recalculateSubStats();
+        this.recalculateSavingThrows();
         return this;
     }
 
@@ -58,10 +78,11 @@ export class CharacterBuilder {
                 }
         });
         this.recalculateSubStats();
+        this.recalculateSavingThrows();
         return this;
     }
 
-    private recalculateSubStats(): void{
+    private recalculateSubStats(): void {
         this.character.getMainstats().forEach(mainstat => {
             mainstat.setSubstatModifier(SubStatModifierCalculator.getInstance().calculateModifierFromMainStat(mainstat));
             mainstat.getSubstats().forEach(substat => {
@@ -71,9 +92,26 @@ export class CharacterBuilder {
         });
     }
 
+    private recalculateSavingThrows(): void {
+        this.character.getSavingThrows().forEach(savingThrow => {
+            const correspondingMS: MainStatInterface =
+                this.character.getMainstats().find(mainstat => mainstat.getName() === savingThrow.getName());
+
+            if (correspondingMS !== null && correspondingMS !== undefined){
+                savingThrow.setValue(
+                    savingThrow.isProficient() ?
+                        correspondingMS.getSubstatModifier() + this.character.getProficiencyBonus()
+                        :
+                        correspondingMS.getSubstatModifier()
+                );
+            }
+        });
+    }
+
     public proficiencyBonus(proficiencyBonus: number): CharacterBuilder {
         this.character.setProficiencyBonus(proficiencyBonus);
         this.recalculateSubStats();
+        this.recalculateSavingThrows();
         return this;
     }
 
@@ -129,6 +167,16 @@ export class CharacterBuilder {
 
     public alignment(alignment: string): CharacterBuilder {
         this.character.setAlignment(alignment);
+        return this;
+    }
+
+    public health(health: HealthInterface): CharacterBuilder {
+        this.character.setHealth(health);
+        return this;
+    }
+
+    public savingThrows(savingThrows: SavingThrowInterface[]): CharacterBuilder{
+        this.character.savingThrows = savingThrows;
         return this;
     }
 

@@ -9,6 +9,8 @@ import { ImpressumComponent } from './impressum/impressum.component';
 import { CharacterDisplayComponent } from './character-display/character-display.component';
 import { ImportExportComponent } from './import-export/import-export.component';
 import { PrettyjsonPipe } from './prettyjson.pipe';
+import { HealthDisplayComponent } from './health-display/health-display.component';
+import { SavingthrowsDisplayComponent } from './savingthrows-display/savingthrows-display.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import { PrettyjsonPipe } from './prettyjson.pipe';
     ImpressumComponent,
     CharacterDisplayComponent,
     ImportExportComponent,
-    PrettyjsonPipe
+    PrettyjsonPipe,
+    HealthDisplayComponent,
+    SavingthrowsDisplayComponent
   ],
   imports: [
     BrowserModule,

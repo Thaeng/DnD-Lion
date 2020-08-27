@@ -1,4 +1,4 @@
-import { CharacterProvider } from 'src/app/provider/CharacterProvicer';
+import { CharacterProvider } from 'src/app/provider/CharacterProvider';
 import { Character } from 'src/stats/entity/Character';
 
 describe ('CharacterProviderTest', () => {

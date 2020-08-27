@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { SubStatInterface } from '../../stats/entity/SubstatInterface';
-import { CharacterProvider } from '../provider/CharacterProvicer';
+import { CharacterProvider } from '../provider/CharacterProvider';
 import { SubStatEnum } from 'src/stats/factory/SubStatEnum';
 
 @Component({

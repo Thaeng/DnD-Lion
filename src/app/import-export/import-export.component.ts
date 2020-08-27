@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CharacterProvider } from '../provider/CharacterProvicer';
+import { CharacterProvider } from '../provider/CharacterProvider';
 import { Character } from 'src/stats/entity/Character';
 import { MainStat } from 'src/stats/entity/MainStat';
 
@@ -33,10 +33,4 @@ export class ImportExportComponent implements OnInit {
 
     return currentCharacter.fromCharacter(newCharacter) as Character;
   }
-
-  loadMainStatsWithoutLoosingDatabinding(currentMainStats: MainStat[]): MainStat[] {
-
-    return currentMainStats;
-  }
-
 }
