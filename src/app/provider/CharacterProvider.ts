@@ -6,6 +6,7 @@ import { MainStat } from '../../stats/entity/MainStat';
 import { SubStat } from '../../stats/entity/SubStat';
 import { SubStatModifierCalculator } from 'src/stats/factory/SubStatModifierCalculator';
 import { SavingThrow } from 'src/stats/entity/SavingThrow';
+import { Item } from 'src/stats/entity/Item';
 
 export class CharacterProvider {
 
@@ -37,6 +38,73 @@ export class CharacterProvider {
 
     public static supplyCharacter(character: Character): CharacterProvider {
         return CharacterProvider.fromCharacter(character);
+    }
+
+    public addItem(item: Item): void {
+        this.character.inventory.push(item);
+
+        this.applyItemMainStats(item);
+        this.applyItemSubStats(item);
+    }
+
+    public removeItem(item: Item): void {
+        const itemIndex: number = this.character.inventory.lastIndexOf(item);
+        this.character.inventory.splice(itemIndex, 1);
+
+        this.applyItemMainStats(item, -1);
+        this.applyItemSubStats(item, -1);
+    }
+
+    private applyItemMainStats(item: Item, valueModifier?: number): void {
+        valueModifier = valueModifier === null || valueModifier === undefined ? 1 : valueModifier;
+
+        const modifierAndValues: Map<string, string> = this.getModifierValueMap(item);
+
+        const keys: string[] = Array.from(modifierAndValues.keys());
+
+        keys.forEach(key => {
+            const relevantMainstat: MainStat = this.character.mainstats.find(mainstat => key === mainstat.name);
+            if (relevantMainstat !== null && relevantMainstat !== undefined){
+                const modifierValue: number =
+                    +modifierAndValues.get(key);
+                relevantMainstat.setValue(relevantMainstat.getValue() + (modifierValue * valueModifier));
+            }
+        });
+        this.recalculateSubStats();
+    }
+
+    private applyItemSubStats(item: Item, valueModifier?: number): void {
+        valueModifier = valueModifier === null || valueModifier === undefined ? 1 : valueModifier;
+
+        const modifierAndValues: Map<string, string> = this.getModifierValueMap(item);
+        const keys: string[] = Array.from(modifierAndValues.keys());
+
+        keys.forEach(key => {
+            this.character.mainstats.forEach(mainstat => {
+                const relevantSubstat: SubStat = mainstat.subStats.find(substat => substat.name === key);
+                if (relevantSubstat !== null && relevantSubstat !== undefined){
+                    const modifierValue: number = +modifierAndValues.get(key);
+                    relevantSubstat.setValue(relevantSubstat.getValue() + (modifierValue * valueModifier));
+                }
+            });
+
+        });
+    }
+
+    private getModifierValueMap(item: Item): Map<string, string> {
+        const statModifiers: string[] =
+        item.statModifier.trim().split(';').map(modifier => modifier);
+
+        const modifierAndValues: Map<string, string> = new Map();
+        statModifiers.forEach(modifier => {
+            const parts: string[] = modifier.split(' ');
+            const value: string = parts.pop();
+            const key: string = parts.join(' ');
+
+            modifierAndValues.set(key, value);
+        });
+
+        return modifierAndValues;
     }
 
     private setCharacter(character: Character): void {
@@ -96,6 +164,8 @@ export class CharacterProvider {
                 substat.setValue(substat.isProficient() ? substatModifier + this.character.getProficiencyBonus() : substatModifier);
             });
         });
+
+        this.character.inventory.forEach(item => this.applyItemSubStats(item));
     }
 
     private buildNewCharacter(): Character {

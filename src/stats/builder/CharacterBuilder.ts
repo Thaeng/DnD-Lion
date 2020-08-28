@@ -17,6 +17,7 @@ export class CharacterBuilder {
 
     private initCharacter(): void{
         this.character = new Character();
+        this.character.inventory = [];
         this.initMainStats();
         this.initHealth();
         this.initSavingThrows();

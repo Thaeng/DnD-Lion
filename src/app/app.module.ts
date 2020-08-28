@@ -11,6 +11,7 @@ import { ImportExportComponent } from './import-export/import-export.component';
 import { PrettyjsonPipe } from './prettyjson.pipe';
 import { HealthDisplayComponent } from './health-display/health-display.component';
 import { SavingthrowsDisplayComponent } from './savingthrows-display/savingthrows-display.component';
+import { ItemDisplayComponent } from './item-display/item-display.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { SavingthrowsDisplayComponent } from './savingthrows-display/savingthrow
     ImportExportComponent,
     PrettyjsonPipe,
     HealthDisplayComponent,
-    SavingthrowsDisplayComponent
+    SavingthrowsDisplayComponent,
+    ItemDisplayComponent
   ],
   imports: [
     BrowserModule,

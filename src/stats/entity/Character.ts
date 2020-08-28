@@ -2,6 +2,7 @@ import { MainStat } from './MainStat';
 import { Health } from './Health';
 import { SavingThrow } from './SavingThrow';
 import { SubStat } from './SubStat';
+import { Item } from './Item';
 
 export class Character {
 
@@ -22,6 +23,7 @@ export class Character {
     mainstats: MainStat[];
     health: Health;
     savingThrows: SavingThrow[];
+    inventory: Item[];
 
     public fromCharacter(other: Character): Character {
         this.proficiencyBonus = other.proficiencyBonus;
@@ -39,6 +41,16 @@ export class Character {
         this.race = other.race;
         this.alignment = other.alignment;
 
+        this.health = this.health.fromHealth(other.health);
+
+        this.transferMainstats(other);
+        this.transferSubStats(other);
+        this.transferInventory(other);
+
+        return this;
+    }
+
+    private transferMainstats(other: Character): void {
         this.mainstats.forEach(mainstat => {
             const newMainstat: MainStat = other.mainstats.find(m => (m as MainStat).name === (mainstat as MainStat).name) as MainStat;
             const newSubstats: SubStat[] = newMainstat.subStats as SubStat[];
@@ -53,9 +65,9 @@ export class Character {
               substat.setValue(newSubstat.value);
             });
           });
+    }
 
-        this.health = this.health.fromHealth(other.health);
-
+    private transferSubStats(other: Character): void {
         this.savingThrows.forEach(savingThrow => {
             savingThrow =
                 savingThrow.fromSavingThrows(
@@ -65,7 +77,11 @@ export class Character {
                 );
             }
         );
-        return this;
+    }
+
+    private transferInventory(other: Character): void {
+        this.inventory.splice(0, this.inventory.length);
+        other.inventory.forEach(item => this.inventory.push(item));
     }
 
     takeDamage(damageTaken: number): void {
