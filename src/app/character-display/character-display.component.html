@@ -47,7 +47,7 @@
                 <td class="text-center align-middle"><input class="form-control" type="number" min="0" [(ngModel)]='character.armorClass'/> AC </td>
                 <td class="text-center align-middle"><input class="form-control" type="number" min="0" [(ngModel)]='character.inspiration'/>Inspiration</td>
                 <td class="text-center align-middle"><input class="form-control" type="number" min="0" [(ngModel)]='character.passiveWisdom'/>Passive Wisdom</td>
-                <td class="text-center align-middle"><input class="form-control" type="number" min="0" [(ngModel)]='character.proficiencyBonus'/>Proficiency Bonus</td>
+                <td class="text-center align-middle"><input class="form-control" type="number" min="0" (change)='proficiencyChanged()' [(ngModel)]='character.proficiencyBonus'/>Proficiency Bonus</td>
             </tr>
         </tbody>
     </table>

@@ -12,6 +12,11 @@ import { PrettyjsonPipe } from './prettyjson.pipe';
 import { HealthDisplayComponent } from './health-display/health-display.component';
 import { SavingthrowsDisplayComponent } from './savingthrows-display/savingthrows-display.component';
 import { ItemDisplayComponent } from './item-display/item-display.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS, } from '@angular/material/dialog';
+import { ItemDetailDisplayComponent } from './item-detail-display/item-detail-display.component';
+import { MatFormFieldModule, MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -24,13 +29,24 @@ import { ItemDisplayComponent } from './item-display/item-display.component';
     PrettyjsonPipe,
     HealthDisplayComponent,
     SavingthrowsDisplayComponent,
-    ItemDisplayComponent
+    ItemDisplayComponent,
+    ItemDetailDisplayComponent
   ],
   imports: [
     BrowserModule,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
-  providers: [],
+  entryComponents: [
+    ItemDetailDisplayComponent
+  ],
+  providers: [
+    {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}},
+    {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {floatLabel: 'always'}}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -18,15 +18,8 @@ export class CharacterDisplayComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  enableInput(event: KeyboardEvent): void {
-    (event.target as HTMLElement).setAttribute('disabled', 'false');
-    console.log(event.target);
-  }
-
-  disableInput(event: KeyboardEvent): void {
-    if (event.key === 'Enter') {
-      console.log('disabled');
-    }
+  proficiencyChanged(): void {
+    CharacterProvider.getInstance().proficiencyChanged();
   }
 
 }

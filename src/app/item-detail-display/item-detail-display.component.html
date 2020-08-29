@@ -1,0 +1,22 @@
+<h1 mat-dialog-title>Item Details:</h1>
+<div mat-dialog-content>
+  <p>Item Name:</p>
+  <mat-form-field>
+    <mat-label>Item Name</mat-label>
+    <input matInput [(ngModel)]="item.name">
+  </mat-form-field>
+  <p>Item Desciption:</p>
+  <mat-form-field>
+    <mat-label>Item Desciption</mat-label>
+    <input matInput [(ngModel)]="item.description">
+  </mat-form-field>
+  <p>Item Modifiers:</p>
+  <mat-form-field>
+    <mat-label>Item Modifiers</mat-label>
+    <input matInput [(ngModel)]="item.statModifier">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-button [mat-dialog-close]="item" cdkFocusInitial>Ok</button>
+</div>

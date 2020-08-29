@@ -40,19 +40,23 @@ export class CharacterProvider {
         return CharacterProvider.fromCharacter(character);
     }
 
+    public changeItem(oldItem: Item, newItem: Item): void {
+        this.applyItemMainStats(oldItem, -1);
+        this.applyItemMainStats(newItem);
+        this.recalculateSubStats();
+    }
+
     public addItem(item: Item): void {
         this.character.inventory.push(item);
 
         this.applyItemMainStats(item);
-        this.applyItemSubStats(item);
+        this.recalculateSubStats();
     }
 
     public removeItem(item: Item): void {
         const itemIndex: number = this.character.inventory.lastIndexOf(item);
         this.character.inventory.splice(itemIndex, 1);
-
-        this.applyItemMainStats(item, -1);
-        this.applyItemSubStats(item, -1);
+        this.recalculateSubStats();
     }
 
     private applyItemMainStats(item: Item, valueModifier?: number): void {
@@ -93,7 +97,7 @@ export class CharacterProvider {
 
     private getModifierValueMap(item: Item): Map<string, string> {
         const statModifiers: string[] =
-        item.statModifier.trim().split(';').map(modifier => modifier);
+        item.statModifier.trim().split(';').map(modifier => modifier.trim());
 
         const modifierAndValues: Map<string, string> = new Map();
         statModifiers.forEach(modifier => {
@@ -114,11 +118,18 @@ export class CharacterProvider {
     public updateMainstat(mainstatEnum: MainStatEnum, value: number): void{
         const builder: CharacterBuilder = new CharacterBuilder().fromCharacter(this.character);
         this.character = builder.mainStat(mainstatEnum, value).build();
+        this.recalculateSubStats();
     }
 
     public updateSubstat(substatEnum: SubStatEnum, proficient: boolean): void{
         const builder: CharacterBuilder = new CharacterBuilder().fromCharacter(this.character);
         this.character = builder.subStat(substatEnum, proficient).build();
+        this.recalculateSubStats();
+    }
+
+    public proficiencyChanged(): void {
+        this.recalculateSubStats();
+        this.recalculateSavingThrows();
     }
 
     public updateSavingThrow(savingThrow: SavingThrow, proficient: boolean): void{

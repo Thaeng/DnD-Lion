@@ -1,11 +1,14 @@
 <div class="container">
     <p class="h1 text-center"> Inventory </p>
     <ul class="bg-secondary">
-        <li *ngFor='let item of inventory'> 
-            Name: {{item.name}} <br>
-            Desc: {{item.description}} <br>
-            Stats: {{item.statModifier}}
-            <button class="btn" (click)='removeItem(item)'>Remove</button>
+        <li *ngFor='let item of inventory'>
+            <div class="container"> 
+                Name: {{item.name}} <br>
+                Desc: {{item.description}} <br>
+                Stats: {{item.statModifier}}
+                <button class="btn" (click)='removeItem(item)'>Remove</button>
+                <button class="btn bg-secondary" (click)='changeItem(item)'>Edit Item</button>
+            </div>
         </li>
     </ul>
     <button class="btn bg-secondary" (click)='addItem()'>Add Item</button>
