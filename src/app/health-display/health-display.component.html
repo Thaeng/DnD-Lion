@@ -3,9 +3,9 @@
     <table class="table bg-secondary text-white text-center">
         <tbody>
             <tr>
-                <td>Hit Point Maximum: {{health.getMaxHitpoints()}}</td>
-                <td>Current Hit Points: {{health.getCurrentHitpoints()}}</td>
-                <td>Temporary Hit Points: {{health.getTemporaryHitpoints()}}</td>
+                <td><input class="form-control" type="number" min="0" [(ngModel)]='health.maxHitpoints' />Hit Point Maximum</td>
+                <td><input class="form-control" type="number" min="0" [(ngModel)]='health.currentHitpoints' (change)='currentHitpointsChanged()' />Current Hit Points</td>
+                <td><input class="form-control" type="number" min="0" [(ngModel)]='health.temporaryHitpoints' />Temporary Hit Points</td>
             </tr>
         </tbody>
     </table>

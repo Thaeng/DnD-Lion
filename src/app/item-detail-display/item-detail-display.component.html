@@ -10,9 +10,16 @@
     <mat-label>Item Desciption</mat-label>
     <input matInput [(ngModel)]="item.description">
   </mat-form-field>
-  <p>Item Modifiers:</p>
+  <p>Item Modifiers: 
+    <span class="border border-dark"
+      matTooltip="Syntax: [<ST:>Statname] [value]; [Statname] [value] e.g. Strength 100; Dexterity +50; Acrobatics -50; ST:Strength 5"
+      aria-label="Button that displays a tooltip when focused or hovered over"
+      [matTooltipPosition]="position.value">
+      <?>
+    </span>
+</p>
   <mat-form-field>
-    <mat-label>Item Modifiers</mat-label>
+    <mat-label>Item Modifiers</mat-label> 
     <input matInput [(ngModel)]="item.statModifier">
   </mat-form-field>
 </div>

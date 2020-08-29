@@ -32,7 +32,7 @@ export class ItemDisplayComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if ( result !== null && result !== undefined) {
+      if ( result !== null && result !== undefined && this.isValidItem(item)) {
         CharacterProvider.getInstance().addItem(result as Item);
       }
     });
@@ -49,13 +49,22 @@ export class ItemDisplayComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if ( result !== null && result !== undefined) {
-        CharacterProvider.getInstance().changeItem(oldItem, result as Item);
+      const newItem = result as Item;
+      if ( result !== null && result !== undefined && this.isValidItem(newItem)) {
+        CharacterProvider.getInstance().changeItem(oldItem, newItem);
+      }else{
+        item.name = oldItem.name;
+        item.description = oldItem.description;
+        item.statModifier = oldItem.statModifier;
       }
     });
   }
 
   removeItem(item: Item): void {
     CharacterProvider.getInstance().removeItem(item);
+  }
+
+  private isValidItem(item: Item): boolean {
+    return !(item.name === null || item.name === undefined || item.name.trim() === '');
   }
 }

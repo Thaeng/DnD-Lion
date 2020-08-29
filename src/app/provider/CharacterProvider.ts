@@ -42,7 +42,11 @@ export class CharacterProvider {
 
     public changeItem(oldItem: Item, newItem: Item): void {
         this.applyItemMainStats(oldItem, -1);
+        this.applyItemSubStats(oldItem, -1);
+        this.applyItemSavingThrows(oldItem, -1);
         this.applyItemMainStats(newItem);
+        this.applyItemSubStats(newItem);
+        this.applyItemSavingThrows(newItem);
         this.recalculateSubStats();
     }
 
@@ -50,12 +54,16 @@ export class CharacterProvider {
         this.character.inventory.push(item);
 
         this.applyItemMainStats(item);
+        this.applyItemSavingThrows(item);
         this.recalculateSubStats();
     }
 
     public removeItem(item: Item): void {
         const itemIndex: number = this.character.inventory.lastIndexOf(item);
         this.character.inventory.splice(itemIndex, 1);
+
+        this.applyItemMainStats(item, -1);
+        this.applyItemSavingThrows(item, -1);
         this.recalculateSubStats();
     }
 
@@ -69,12 +77,16 @@ export class CharacterProvider {
         keys.forEach(key => {
             const relevantMainstat: MainStat = this.character.mainstats.find(mainstat => key === mainstat.name);
             if (relevantMainstat !== null && relevantMainstat !== undefined){
-                const modifierValue: number =
-                    +modifierAndValues.get(key);
+                const modifierValue: number = this.safelyCastStringToNumber(modifierAndValues.get(key));
                 relevantMainstat.setValue(relevantMainstat.getValue() + (modifierValue * valueModifier));
             }
         });
         this.recalculateSubStats();
+    }
+
+    private safelyCastStringToNumber(value: string): number {
+        const num: number = +value;
+        return Number.isNaN(num) ? 0 : num;
     }
 
     private applyItemSubStats(item: Item, valueModifier?: number): void {
@@ -87,12 +99,31 @@ export class CharacterProvider {
             this.character.mainstats.forEach(mainstat => {
                 const relevantSubstat: SubStat = mainstat.subStats.find(substat => substat.name === key);
                 if (relevantSubstat !== null && relevantSubstat !== undefined){
-                    const modifierValue: number = +modifierAndValues.get(key);
+                    const modifierValue: number = this.safelyCastStringToNumber(modifierAndValues.get(key));
                     relevantSubstat.setValue(relevantSubstat.getValue() + (modifierValue * valueModifier));
                 }
             });
 
         });
+    }
+
+    private applyItemSavingThrows(item: Item, valueModifier?: number): void {
+        valueModifier = valueModifier === null || valueModifier === undefined ? 1 : valueModifier;
+
+        const modifierAndValues: Map<string, string> = this.getModifierValueMap(item);
+        const keys: string[] = Array.from(modifierAndValues.keys());
+
+        keys
+            .filter(key => key.startsWith('ST:'))
+            .map(key => key.replace('ST:', ''))
+            .forEach(key => {
+                const relevantSavingThrow = this.character.savingThrows.find(savingThrow => savingThrow.name === key);
+
+                if (relevantSavingThrow !== null && relevantSavingThrow !== undefined){
+                    const modifierValue: number = this.safelyCastStringToNumber(modifierAndValues.get('ST:' + key));
+                    relevantSavingThrow.setValue(relevantSavingThrow.getValue() + (modifierValue * valueModifier));
+                }
+            });
     }
 
     private getModifierValueMap(item: Item): Map<string, string> {
@@ -165,6 +196,8 @@ export class CharacterProvider {
                 );
             }
         });
+
+        this.character.inventory.forEach(item => this.applyItemSavingThrows(item));
     }
 
     private recalculateSubStats(): void{
@@ -194,6 +227,7 @@ export class CharacterProvider {
                 .armorClass(18)
                 .inspiration(0)
                 .passiveWisdom(11)
+                .speed(30)
                 .build();
         return newCharacter;
     }

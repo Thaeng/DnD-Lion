@@ -26,4 +26,10 @@ export class HealthDisplayComponent implements OnInit {
   heal(): void {
     this.health.healDamage(this.healing);
   }
+
+  currentHitpointsChanged(): void {
+    if ( this.health.currentHitpoints > this.health.maxHitpoints ) {
+      this.health.currentHitpoints = this.health.maxHitpoints;
+    }
+  }
 }

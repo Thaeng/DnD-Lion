@@ -17,6 +17,7 @@ import { MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS, } from '@angular/material/
 import { ItemDetailDisplayComponent } from './item-detail-display/item-detail-display.component';
 import { MatFormFieldModule, MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { MatInputModule } from '@angular/material/input';
     BrowserAnimationsModule,
     MatDialogModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatTooltipModule
   ],
   entryComponents: [
     ItemDetailDisplayComponent

@@ -1,8 +1,8 @@
 export class Health  {
 
-    private currentHitpoints: number;
-    private temporaryHitpoints: number;
-    private maxHitpoints: number;
+    public currentHitpoints: number;
+    public temporaryHitpoints: number;
+    public maxHitpoints: number;
 
     public constructor(maxHitpoints?: number) {
         this.maxHitpoints = maxHitpoints === null || maxHitpoints === undefined ? 20 : maxHitpoints;

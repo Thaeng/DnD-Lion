@@ -139,6 +139,11 @@ export class CharacterBuilder {
         return this;
     }
 
+    public speed(speed: number): CharacterBuilder {
+        this.character.speed = speed;
+        return this;
+    }
+
     public characterName(characterName: string): CharacterBuilder {
         this.character.setCharacterName(characterName);
         return this;
