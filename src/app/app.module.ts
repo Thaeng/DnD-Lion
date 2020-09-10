@@ -21,6 +21,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { SpellDisplayComponent } from './spell-display/spell-display.component';
 import { SpellDialogComponent } from './spell-dialog/spell-dialog.component';
 import { CharacterInfoDisplayComponent } from './character-info-display/character-info-display.component';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { CharacterInfoDisplayComponent } from './character-info-display/characte
     MatDialogModule,
     MatFormFieldModule,
     MatInputModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatSelectModule
   ],
   entryComponents: [
     ItemDetailDisplayComponent

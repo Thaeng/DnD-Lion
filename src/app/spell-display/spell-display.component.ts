@@ -8,16 +8,24 @@ import { SpellDialogComponent } from '../spell-dialog/spell-dialog.component';
 @Component({
   selector: 'app-spell-display',
   templateUrl: './spell-display.component.html',
+  styleUrls: ['./spell-display.component.css']
 })
 export class SpellDisplayComponent implements OnInit {
 
   spellInventory: SpellInventory;
   isDialogUp = false;
+  selectedSpellCastingAbility: string;
 
   constructor(public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.spellInventory = CharacterProvider.getInstance().getCharacter().spellInventory;
+    this.selectedSpellCastingAbility = 'CHA';
+    this.spellCastingAbilityChanged();
+  }
+
+  spellCastingAbilityChanged(): void {
+    CharacterProvider.getInstance().recalculatingSpellRelatedStats();
   }
 
   addSpell(level: number): void {

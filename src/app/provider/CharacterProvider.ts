@@ -40,6 +40,57 @@ export class CharacterProvider {
         return CharacterProvider.fromCharacter(character);
     }
 
+    public recalculatingSpellRelatedStats(): void {
+        const mainstatName = this.getMainstatNameFromAbbreviation(this.character.spellInventory.spellCastingAbility.trim());
+        if ( mainstatName !== null && mainstatName !== undefined && mainstatName.trim() !== '') {
+            const statModifier: number = this.character.mainstats.find(mainstat => mainstatName === mainstat.name).substatModifier;
+            this.adjustSpellSaveDC(statModifier);
+            this.adjustSpellAttackBonus(statModifier);
+        }
+    }
+
+    private adjustSpellSaveDC(statModifier: number): void{
+        let itemModifiers = 0;
+
+        this.character.inventory.forEach(item => {
+            const modifierAndValues: Map<string, string> = this.getModifierValueMap(item);
+            const keys: string[] = Array.from(modifierAndValues.keys());
+
+            keys
+                .filter(key => key.toLowerCase().startsWith('spellsavedc'))
+                .forEach( key => itemModifiers += this.safelyCastStringToNumber(modifierAndValues.get(key)));
+        });
+
+        this.character.spellInventory.spellSaveDC = 8 + statModifier + this.character.proficiencyBonus + itemModifiers;
+    }
+
+    private adjustSpellAttackBonus(statModifier: number): void{
+        let itemModifiers = 0;
+
+        this.character.inventory.forEach(item => {
+            const modifierAndValues: Map<string, string> = this.getModifierValueMap(item);
+            const keys: string[] = Array.from(modifierAndValues.keys());
+
+            keys
+                .filter(key => key.toLowerCase().startsWith('spellattackbonus'))
+                .forEach( key => itemModifiers += this.safelyCastStringToNumber(modifierAndValues.get(key)));
+        });
+
+        this.character.spellInventory.spellAttackBonus = statModifier + this.character.proficiencyBonus + itemModifiers;
+    }
+
+    private getMainstatNameFromAbbreviation(abbreviation: string): string{
+        switch (abbreviation.toUpperCase()){
+            case 'STR' : return 'Strength';
+            case 'DEX' : return 'Dexterity';
+            case 'CON' : return 'Constitution';
+            case 'INT' : return 'Intelligence';
+            case 'WIS' : return 'Wisdom';
+            case 'CHA' : return 'Charisma';
+            default: return '';
+        }
+    }
+
     public changeItem(oldItem: Item, newItem: Item): void {
         this.applyItemMainStats(oldItem, -1);
         this.applyItemSubStats(oldItem, -1);
@@ -82,6 +133,7 @@ export class CharacterProvider {
             }
         });
         this.recalculateSubStats();
+        this.recalculatingSpellRelatedStats();
     }
 
     private safelyCastStringToNumber(value: string): number {
@@ -149,6 +201,9 @@ export class CharacterProvider {
     public updateMainstat(mainstatEnum: MainStatEnum, value: number): void{
         const builder: CharacterBuilder = new CharacterBuilder().fromCharacter(this.character);
         this.character = builder.mainStat(mainstatEnum, value).build();
+
+        this.recalculatingSpellRelatedStats();
+
         this.recalculateSubStats();
     }
 
@@ -159,6 +214,7 @@ export class CharacterProvider {
     }
 
     public proficiencyChanged(): void {
+        this.recalculatingSpellRelatedStats();
         this.recalculateSubStats();
         this.recalculateSavingThrows();
     }

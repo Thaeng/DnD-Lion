@@ -5,19 +5,28 @@
             <tr>
                 <td>
                     <input class="form-control" type="text" [(ngModel)]='spellInventory.spellCastingClass'/>
-                    SpellCastingClass
+                    Spell Casting Class
                 </td>
                 <td>
-                    <input class="form-control" type="text" [(ngModel)]='spellInventory.spellCastingAbility'/>
-                    SpellCastingAbility
+                    <mat-form-field appearance="fill" class="text-white">
+                        <mat-select [(value)]="selectedSpellCastingAbility">
+                            <mat-option value="STR">STR</mat-option>
+                            <mat-option value="DEX">DEX</mat-option>
+                            <mat-option value="CON">CON</mat-option>
+                            <mat-option value="INT">INT</mat-option>
+                            <mat-option value="WIS">WIS</mat-option>
+                            <mat-option value="CHA">CHA</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
                 </td>
                 <td>
                     <input class="form-control" type="text" [(ngModel)]='spellInventory.spellSaveDC'/>
-                    SpellSaveDC
+                    Spell Save DC
                 </td>
                 <td>
                     <input class="form-control" type="text" [(ngModel)]='spellInventory.spellAttackBonus'/>
-                    SpellAttackBonus
+                    Spell Attack Bonus
                 </td>
             </tr>
         </tbody>

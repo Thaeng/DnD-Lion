@@ -30,6 +30,8 @@ export class Character {
     spellInventory: SpellInventory;
     characterInfo: CharacterInfo;
 
+    appereance: string;
+
     public fromCharacter(other: Character): Character {
         this.proficiencyBonus = other.proficiencyBonus;
         this.armorClass = other.armorClass;
@@ -45,6 +47,8 @@ export class Character {
         this.characterBackground = other.characterBackground;
         this.race = other.race;
         this.alignment = other.alignment;
+
+        this.appereance = other.appereance;
 
         this.health = this.health.fromHealth(other.health);
         this.spellInventory = this.spellInventory.fromSpellInventory(other.spellInventory);

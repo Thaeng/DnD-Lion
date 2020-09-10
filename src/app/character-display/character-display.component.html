@@ -1,5 +1,6 @@
 <div class='container'>
-
+    <img src="{{'data:image/jpg;base64,' + character.appereance}}" />
+    <input type="file" (change)="onFileChanged($event)">
     <table class="table table-striped bg-secondary text-white text-center ">
         <tbody>
             <tr>
@@ -11,7 +12,7 @@
                     <div class="d-flex justify-content-left align-items-center">
                         <input class="form-control" type="text" [(ngModel)]='character.characterClass'/>
                         <span class="ml-1 mr-1">Lvl.</span>
-                        <input class="form-control w-25" type="number" [(ngModel)]='character.level' min="1"/>
+                        <input class="form-control w-25" type="number" [(ngModel)]='character.level' min="1" max="20"/>
                     </div>
                     Class & Level
                 </td>
