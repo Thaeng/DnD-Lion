@@ -7,6 +7,8 @@ import { MainStat } from '../entity/MainStat';
 import { SubStat } from '../entity/SubStat';
 import { SubStatModifierCalculator } from '../factory/SubStatModifierCalculator';
 import { SavingThrow } from '../entity/SavingThrow';
+import { SpellInventory } from '../entity/SpellInventory';
+import { CharacterInfo } from '../entity/CharacterInfo';
 
 export class CharacterBuilder {
     private character: Character;
@@ -18,6 +20,8 @@ export class CharacterBuilder {
     private initCharacter(): void{
         this.character = new Character();
         this.character.inventory = [];
+        this.character.spellInventory = new SpellInventory();
+        this.character.characterInfo = new CharacterInfo();
         this.initMainStats();
         this.initHealth();
         this.initSavingThrows();

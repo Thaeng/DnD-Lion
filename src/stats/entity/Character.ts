@@ -3,6 +3,9 @@ import { Health } from './Health';
 import { SavingThrow } from './SavingThrow';
 import { SubStat } from './SubStat';
 import { Item } from './Item';
+import { SpellInventory } from './SpellInventory';
+import { CharacterInfo } from './CharacterInfo';
+
 
 export class Character {
 
@@ -24,6 +27,8 @@ export class Character {
     health: Health;
     savingThrows: SavingThrow[];
     inventory: Item[];
+    spellInventory: SpellInventory;
+    characterInfo: CharacterInfo;
 
     public fromCharacter(other: Character): Character {
         this.proficiencyBonus = other.proficiencyBonus;
@@ -42,6 +47,8 @@ export class Character {
         this.alignment = other.alignment;
 
         this.health = this.health.fromHealth(other.health);
+        this.spellInventory = this.spellInventory.fromSpellInventory(other.spellInventory);
+        this.characterInfo = this.characterInfo.fromCharacterInfo(other.characterInfo);
 
         this.transferMainstats(other);
         this.transferSubStats(other);

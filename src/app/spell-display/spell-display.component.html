@@ -1,0 +1,53 @@
+<div class="container">
+    <p class="h1 text-center"> Spell Sheet </p>
+    <table class="table table-striped bg-secondary text-white text-center ">
+        <tbody>
+            <tr>
+                <td>
+                    <input class="form-control" type="text" [(ngModel)]='spellInventory.spellCastingClass'/>
+                    SpellCastingClass
+                </td>
+                <td>
+                    <input class="form-control" type="text" [(ngModel)]='spellInventory.spellCastingAbility'/>
+                    SpellCastingAbility
+                </td>
+                <td>
+                    <input class="form-control" type="text" [(ngModel)]='spellInventory.spellSaveDC'/>
+                    SpellSaveDC
+                </td>
+                <td>
+                    <input class="form-control" type="text" [(ngModel)]='spellInventory.spellAttackBonus'/>
+                    SpellAttackBonus
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <ul class="bg-secondary">
+        <li>
+            Cantrips:
+            <ul>
+                <li *ngFor='let cantrip of spellInventory.cantrips'>
+                        {{cantrip}}
+                        <button class="btn" (click)='removeCantrip(cantrip)'>Remove</button>
+                        <button class="btn" (click)='editCantrip(cantrip)'>Edit</button>
+                </li>
+            </ul>
+            <button class="btn" (click)='addCantrip("New Cantrip")'>Add Cantrip</button>
+        </li>
+        <li *ngFor='let spellLevel of spellInventory.spellLevels'>
+            <div class="container"> 
+                Level: {{spellLevel.level}} Slots: {{spellLevel.slotsTotal}} Expanded: {{spellLevel.slotsExpended}}
+                <ul class="bg-secondary">
+                    <li *ngFor='let spell of spellLevel.spells'>
+                        {{spell}}
+                        <button class="btn" (click)='removeSpell(spell, spellLevel.level)'>Remove</button>
+                        <button class="btn" (click)='editSpell(spell, spellLevel.level)'>Edit</button>
+                    </li>
+                </ul>
+                <button class="btn" (click)='addSpell(spellLevel.level)'>Add Spell</button>
+            </div>
+        </li>
+    </ul>
+    <hr>
+</div>
+

@@ -12,10 +12,7 @@ import { ItemDetailDisplayComponent } from '../item-detail-display/item-detail-d
 export class ItemDisplayComponent implements OnInit {
 
   inventory: Item[];
-
-  animal: string;
-  name: string;
-
+  isDialogUp = false;
 
   constructor(public dialog: MatDialog) { }
 
@@ -25,13 +22,7 @@ export class ItemDisplayComponent implements OnInit {
 
   addItem(): void {
     const item: Item = new Item('', '', '');
-    const dialogRef = this.dialog.open(ItemDetailDisplayComponent, {
-      height: '400px',
-      width: '600px',
-      data: item
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
+    this.openDialog(item, result => {
       if ( result !== null && result !== undefined && this.isValidItem(item)) {
         CharacterProvider.getInstance().addItem(result as Item);
       }
@@ -39,16 +30,9 @@ export class ItemDisplayComponent implements OnInit {
   }
 
   changeItem(item: Item): void {
-
     const oldItem = new Item(item.name, item.description, item.statModifier);
 
-    const dialogRef = this.dialog.open(ItemDetailDisplayComponent, {
-      height: '400px',
-      width: '600px',
-      data: item
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
+    this.openDialog(item, result => {
       const newItem = result as Item;
       if ( result !== null && result !== undefined && this.isValidItem(newItem)) {
         CharacterProvider.getInstance().changeItem(oldItem, newItem);
@@ -62,6 +46,21 @@ export class ItemDisplayComponent implements OnInit {
 
   removeItem(item: Item): void {
     CharacterProvider.getInstance().removeItem(item);
+  }
+
+  private openDialog(item: Item, callback: (value: any) => void): void{
+    if (!this.isDialogUp) {
+      this.isDialogUp = true;
+
+      const dialogRef = this.dialog.open(ItemDetailDisplayComponent, {
+        height: '400px',
+        width: '600px',
+        data: item
+      });
+
+      dialogRef.afterClosed().subscribe(callback);
+      dialogRef.afterClosed().subscribe(() => this.isDialogUp = false );
+    }
   }
 
   private isValidItem(item: Item): boolean {

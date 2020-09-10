@@ -1,0 +1,71 @@
+<div class="container">
+    <p class="h1 text-center"> Additional Character Info </p>
+    <table class="table table-striped bg-secondary text-white text-center" >
+        <tbody>
+            <tr>
+                <td>
+                    <input class="form-control" type="number" [(ngModel)]='characterInfo.age'/>
+                    Age
+                </td>
+                <td>
+                    <input class="form-control" type="number" [(ngModel)]='characterInfo.height'/>
+                    Height
+                </td>  
+                <td>
+                    <input class="form-control" type="text" [(ngModel)]='characterInfo.weight'/>
+                    Weight
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input class="form-control" type="text" [(ngModel)]='characterInfo.eyes'/>
+                    Eyes
+                </td>
+                <td>
+                    <input class="form-control" type="text" [(ngModel)]='characterInfo.skin'/>
+                    Skin
+                </td>  
+                <td>
+                    <input class="form-control" type="text" [(ngModel)]='characterInfo.hair'/>
+                    Hair
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-striped bg-secondary text-white text-center ">
+        <tbody>
+            <tr>
+                <td>
+                    <textarea class="form-control text-white bg-secondary" type="text" [(ngModel)]="characterInfo.personalityTraits" rows="5" spellcheck="false"></textarea>
+                    Personality Trait
+                </td>
+                <td>
+                    <textarea class="form-control text-white bg-secondary" type="text" [(ngModel)]="characterInfo.ideals" rows="5" spellcheck="false"></textarea>
+                    Ideals
+                </td>
+                <td>
+                    <textarea class="form-control text-white bg-secondary" type="text" [(ngModel)]="characterInfo.bonds" rows="5" spellcheck="false"></textarea>
+                    Bonds
+                </td>
+                <td>
+                    <textarea class="form-control text-white bg-secondary" type="text" [(ngModel)]="characterInfo.flaws" rows="5" spellcheck="false"></textarea>
+                    Flaws
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <p class="h1 text-center"> Features & Traits </p>
+    <textarea class="form-control text-white bg-secondary" type="text" [(ngModel)]="characterInfo.featuresAndTraits" rows="10" spellcheck="false"></textarea>
+    
+    <p class="h1 text-center"> Other Proficiencies & Languages </p>
+    <textarea class="form-control text-white bg-secondary" type="text" [(ngModel)]="characterInfo.otherProficienciesAndLanguages" rows="10" spellcheck="false"></textarea>
+    
+    <p class="h1 text-center"> Allies & Organizations </p>
+    <textarea class="form-control text-white bg-secondary" type="text" [(ngModel)]="characterInfo.alliesAndOrganizations" rows="10" spellcheck="false"></textarea>
+
+    <p class="h1 text-center"> Treasure </p>
+    <textarea class="form-control text-white bg-secondary" type="text" [(ngModel)]="characterInfo.treasure" rows="10" spellcheck="false"></textarea>
+    
+    <p class="h1 text-center"> Character Backstory</p>
+    <textarea class="form-control text-white bg-secondary" type="text" [(ngModel)]="characterInfo.characterBackStory" rows="10" spellcheck="false"></textarea>
+</div>

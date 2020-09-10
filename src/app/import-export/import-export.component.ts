@@ -21,8 +21,8 @@ export class ImportExportComponent implements OnInit {
   }
 
   doImport(): void {
-
     CharacterProvider.fromCharacter(this.loadCharacterWithoutLoosingDatabinding());
+    alert('Character Imported');
   }
 
   loadCharacterWithoutLoosingDatabinding(): Character {

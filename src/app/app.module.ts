@@ -18,6 +18,9 @@ import { ItemDetailDisplayComponent } from './item-detail-display/item-detail-di
 import { MatFormFieldModule, MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { SpellDisplayComponent } from './spell-display/spell-display.component';
+import { SpellDialogComponent } from './spell-dialog/spell-dialog.component';
+import { CharacterInfoDisplayComponent } from './character-info-display/character-info-display.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +34,10 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     HealthDisplayComponent,
     SavingthrowsDisplayComponent,
     ItemDisplayComponent,
-    ItemDetailDisplayComponent
+    ItemDetailDisplayComponent,
+    SpellDisplayComponent,
+    SpellDialogComponent,
+    CharacterInfoDisplayComponent
   ],
   imports: [
     BrowserModule,
